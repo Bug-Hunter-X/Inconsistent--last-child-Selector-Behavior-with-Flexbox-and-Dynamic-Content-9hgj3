@@ -1,0 +1,33 @@
+The following CSS code snippet demonstrates an issue with unexpected behavior when using the `:last-child` pseudo-class with flexbox and dynamically added elements: 
+
+```css
+.container {
+display: flex;
+}
+
+.item {
+  width: 50px;
+  height: 50px;
+  background-color: lightblue;
+}
+```
+
+```javascript
+const container = document.querySelector('.container');
+
+function addItem() {
+  const newItem = document.createElement('div');
+  newItem.classList.add('item');
+  container.appendChild(newItem);
+}
+
+// Add the initial items
+addItem();
+addItem();
+
+//The :last-child selector does not always correctly target the last child of the flex container when items are dynamically added. 
+//This is because the DOM tree update and CSS rendering may not happen in sync.
+
+//Adding an item later might not automatically update the style of the last child.
+setTimeout(addItem, 2000); // Add another item after 2 seconds
+```
